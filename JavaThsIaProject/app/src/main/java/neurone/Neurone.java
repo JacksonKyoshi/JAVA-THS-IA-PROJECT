@@ -68,7 +68,10 @@ public abstract class Neurone implements iNeurone
 	public int apprentissage(final float[][] entrees, final float[] resultats)
 	{
 		int compteurEchecs = 0;
-		
+		int maxIterations = 10000;  // Limite le nombre d'itérations à 10 000 itérations
+		int iterations = 0;
+
+
 		// Un "drapeau" indiquant si toutes les entrées ont permis de trouver
 		// les résultats attendus (=> l'apprentissage est alors fini), ou s'il
 		// y a au moins un cas qui ne correspond pas (=> apprentissage pas fini)
@@ -91,9 +94,8 @@ public abstract class Neurone implements iNeurone
 				//CODE FAIT PAR ISAURE, A VALIDER ==================================================
 
 				// On regarde la différence avec le résultat attendu
-				float erreurAbs = etatInterne - resultats[i];
-				// En fait il faut la valeur absolue de l'erreur absolue mais comme je ne sais pas si on a le droit à Math.abs() je vais la faire à la main
-				if(erreurAbs < 0){ erreurAbs = -erreurAbs; }
+				float erreur = resultats[i] - etatInterne;
+				float erreurAbs = Math.abs(erreur);
 
 				// Si l'erreur absolue dépasse la tolérance autorisée
 				if(erreurAbs > ToleranceSortie) {
@@ -101,15 +103,23 @@ public abstract class Neurone implements iNeurone
 
 					// Apparement pour mettre à jour les poids il faut faire : poids + taux d'apprentissage * erreur * entrée correspondante au poids
 					for (int j = 0; j < synapses.length; ++j) {
-						synapses[j] += eta * erreurAbs * entree[j];
+						synapses[j] += eta * erreur * entree[j];
 					}
 					// On met aussi à jour le biais
-					biais += eta * erreurAbs; // même formule que pour le poids
+					biais += eta * erreur; // même formule que pour le poids
 
 					// =============================================================================
 					apprentissageFini = false;
 					compteurEchecs += 1;
 				}
+			}
+
+			// Compte les itérations. Si on arrive à la 10 000ème, on stop le programme.
+			// (cela évite d'avoir un programme qui tourne à l'infini en cas de problème)
+			iterations++;
+			if (iterations >= maxIterations) {
+				System.out.println("Le nombre d'itérations maximum à été atteint. Fin du programme.");
+				break;
 			}
 		}
 		while (!apprentissageFini);
