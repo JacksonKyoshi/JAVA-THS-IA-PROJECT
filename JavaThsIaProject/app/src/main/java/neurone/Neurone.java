@@ -68,7 +68,7 @@ public abstract class Neurone implements iNeurone
 	public int apprentissage(final float[][] entrees, final float[] resultats)
 	{
 		int compteurEchecs = 0;
-		int maxIterations = 10000;  // Limite le nombre d'itérations à 10 000 itérations
+		int maxIterations = 100000;  // Limite le nombre d'itérations à 10 000 itérations
 		int iterations = 0;
 
 
