@@ -9,7 +9,7 @@ public class testNeuroneOR
         // Tableau des sorties de la fonction OU
         final float[] resultats = {0, 1, 1, 1};
 
-        // On crée un neurone taillé pour apprendre la fonction ET
+        // On crée un neurone taillé pour apprendre la fonction OU
         //final iNeurone n = new NeuroneHeaviside(entrees[0].length);
         //final iNeurone n = new NeuroneSigmoide(entrees[0].length);
         final iNeurone n = new NeuroneReLU(entrees[0].length);
