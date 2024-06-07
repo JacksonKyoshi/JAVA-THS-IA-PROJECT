@@ -68,7 +68,7 @@ public abstract class Neurone implements iNeurone
 	public int apprentissage(final float[][] entrees, final float[] resultats)
 	{
 		int compteurEchecs = 0;
-		int maxIterations = 100000;  // Limite le nombre d'itérations à 10 000 itérations
+		int maxIterations = 100000;  // Limite le nombre d'itérations à 100 000 itérations
 		int iterations = 0;
 
 
@@ -91,8 +91,6 @@ public abstract class Neurone implements iNeurone
 				// On calcule la sortie du neurone en fonction de ces entrées
 				metAJour(entree);
 
-				//CODE FAIT PAR ISAURE, A VALIDER ==================================================
-
 				// On regarde la différence avec le résultat attendu
 				float erreur = resultats[i] - etatInterne;
 				float erreurAbs = Math.abs(erreur);
@@ -101,14 +99,13 @@ public abstract class Neurone implements iNeurone
 				if(erreurAbs > ToleranceSortie) {
 					// On met à jour les poids synaptiques
 
-					// Apparement pour mettre à jour les poids il faut faire : poids + taux d'apprentissage * erreur * entrée correspondante au poids
+					// Formule pour mettre à jour les poids : poids + taux d'apprentissage * erreur * entrée correspondante au poids
 					for (int j = 0; j < synapses.length; ++j) {
 						synapses[j] += eta * erreur * entree[j];
 					}
 					// On met aussi à jour le biais
 					biais += eta * erreur; // même formule que pour le poids
 
-					// =============================================================================
 					apprentissageFini = false;
 					compteurEchecs += 1;
 				}
