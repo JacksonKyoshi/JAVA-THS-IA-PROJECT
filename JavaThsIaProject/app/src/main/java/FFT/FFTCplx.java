@@ -1,5 +1,5 @@
 package FFT;
-class FFTCplx
+public class FFTCplx
 {
 	public final static int TailleFFTtest = 16;
 	public final static double Periode = 1;
