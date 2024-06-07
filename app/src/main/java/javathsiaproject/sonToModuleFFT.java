@@ -13,7 +13,18 @@ public class sonToModuleFFT {
         //Création d'une variable "son"
         Son son = new Son(cheminFichier);
         //Conversion de l'échantillonage en complex cartésien (valeur imaginaire = 0)
-        ComplexeCartesien[] tablo = converteurComplex.convertirEnComplexe(son.bloc_deTaille(1,512));
+        float[] valeurs = son.bloc_deTaille(1,512);
+        float max =0;
+        //on normalise les valeurs pour un resultat plus simple
+        for(int i = 0; i<valeurs.length; ++i){
+            if(max<valeurs[i]){
+                max = valeurs[i];
+            }
+        }
+        for(int i = 0;i<valeurs.length;++i){
+            valeurs[i]=valeurs[i]/max;
+        }
+        ComplexeCartesien[] tablo = converteurComplex.convertirEnComplexe(valeurs);
         //application de la FFT sur les valeurs complex
         Complexe[] resultat = appliqueSur(tablo);
         //pour chacunes des valeurs complex de la FFT, on calcule le module
