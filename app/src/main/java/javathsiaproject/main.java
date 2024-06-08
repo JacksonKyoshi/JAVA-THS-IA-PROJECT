@@ -12,19 +12,19 @@ public class main {
     public static void main (String[] args) {
 
         float nbTests = 0;
-        float compteurEchecs = 0;
         float nbErreursSinusoide = 0;
         float nbErreursCarre = 0;
 
-        // Tableau des entrées d'un signal sinusoïdal
-        final float[][] entrees = {convertSonModule("app/src/main/resources/audio/Sinusoide.wav")};
+        // Tableau des entrées
+        final float[][] entrees = {convertSonModule("app/src/main/resources/audio/Sinusoide.wav"),convertSonModule("app/src/main/resources/audio/Carre.wav")};
 
         // Tableaux des sorties Sinusoide et Carré
-        final float[] resultatsSinusoide = convertSonModule("app/src/main/resources/audio/Sinusoide.wav");
-        final float[] resultatsCarre = convertSonModule("app/src/main/resources/audio/Carre.wav");
+        final float[] resultatsSinusoide = {1,0};
+        final float[] resultatsCarre = {0,1};
+
 
         final iNeurone neuroneSinusoide = new NeuroneSigmoide(entrees[0].length);
-        final iNeurone neuroneCarre = new NeuroneSigmoide(entrees[0].length);
+        final iNeurone neuroneCarre = new NeuroneSigmoide(entrees[1].length);
 
         System.out.println("Apprentissage…");
 
@@ -38,23 +38,20 @@ public class main {
 
         for (int i = 0; i < entrees.length; ++i)
         {
-            for (int j = 0; j < entrees[i].length; ++j) {
-                // Pour une entrée donné
-                final float[] entree = entrees[i];
-                // On met à jour la sortie du neurone
-                neuroneSinusoide.metAJour(entrees[i]);
-                neuroneCarre.metAJour(entrees[i]);
+            // Pour une entrée donné
+            final float[] entree = entrees[i];
+            // On met à jour la sortie du neurone
+            neuroneSinusoide.metAJour(entrees[i]);
+            neuroneCarre.metAJour(entrees[i]);
 
-                if (neuroneSinusoide.sortie() != resultatsSinusoide[i]) {
-                    nbErreursSinusoide += 1;
-                }
-                System.out.println("Nb Erreurs Sinus: " + nbErreursSinusoide);
+            //if(neuroneSinusoide.sortie() <= resultatsSinusoide[i]*0.5f){ nbErreursSinusoide += 1; }
+            if (resultatsSinusoide[i] == 1 ? neuroneSinusoide.sortie() < 0.5f : neuroneSinusoide.sortie() >= 0.5f) { nbErreursSinusoide += 1; }
 
-                if (neuroneCarre.sortie() != resultatsCarre[i]) {
-                    nbErreursCarre += 1;
-                }
-            }
+            //if(neuroneCarre.sortie() <= resultatsCarre[i]*0.5f){ nbErreursCarre += 1; }
+            if(resultatsCarre[i] == 1 ? neuroneCarre.sortie() < 0.5f : neuroneCarre.sortie() >= 0.5f) { nbErreursCarre += 1; }
+
             nbTests += 1;
+
         }
 
         System.out.println("========================================");
