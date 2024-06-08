@@ -9,7 +9,7 @@ import static FFT.FFTCplx.appliqueSur;
 public class sonToModuleFFT {
 
 
-    public static double[] convertSonModule(String cheminFichier){//methode pour récupérer le tableau de module en fonction de l'audio
+    public static float[] convertSonModule(String cheminFichier){//methode pour récupérer le tableau de module en fonction de l'audio
         //Création d'une variable "son"
         Son son = new Son(cheminFichier);
         //Conversion de l'échantillonage en complex cartésien (valeur imaginaire = 0)
@@ -28,11 +28,10 @@ public class sonToModuleFFT {
         //application de la FFT sur les valeurs complex
         Complexe[] resultat = appliqueSur(tablo);
         //pour chacunes des valeurs complex de la FFT, on calcule le module
-        double[] module = new double[resultat.length];
+        float[] module = new float[resultat.length];
         for (int i = 0; i < resultat.length; ++i){
             //System.out.println("resultat : "+resultat[i].reel()+"+"+resultat[i].imag());
-            module[i] = resultat[i].mod();
-            System.out.println("mod : "+module[i]);
+            module[i] = (float) Math.sqrt(Math.pow(resultat[i].reel(),2)+Math.pow(resultat[i].imag(),2));
         }
         return module;
     }
