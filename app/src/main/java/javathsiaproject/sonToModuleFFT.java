@@ -13,7 +13,7 @@ public class sonToModuleFFT {
         //Création d'une variable "son"
         Son son = new Son(cheminFichier);
         //Conversion de l'échantillonage en complex cartésien (valeur imaginaire = 0)
-        float[] valeurs = son.bloc_deTaille(1,512);
+        float[] valeurs = son.bloc_deTaille(1,1024);
         float max =0;
         //on normalise les valeurs pour un resultat plus simple
         for(int i = 0; i<valeurs.length; ++i){
