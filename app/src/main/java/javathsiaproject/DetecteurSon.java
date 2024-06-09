@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 import static javathsiaproject.sonToModuleFFT.convertSonModule;
 
-public class main {
+public class DetecteurSon {
     public static void main(String[] args) {
 
         // Tableau contenant les noms des différents fichiers fournis
