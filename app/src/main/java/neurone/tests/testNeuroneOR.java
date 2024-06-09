@@ -1,4 +1,15 @@
-package neurone;
+package neurone.tests;
+
+import neurone.Neurone;
+import neurone.NeuroneHeaviside;
+import neurone.iNeurone;
+
+/**
+ * Ancien fichier de test de la partie IA.
+ * Permet de tester l'apprentissage d'un neurone sur la porte OR
+ * La fonction d'activation doit être changées à la main, c'est pourquoi les fichiers testIA et testIABruit ont été créés.
+ * Ils reprennent les mêmes fonctionnalités mais facilitent les tests.
+ */
 public class testNeuroneOR
 {
     public static void main(String[] args)
